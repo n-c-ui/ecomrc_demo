@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import './nav.css'
 
 const Nav = () => {
-    const { loginWithRedirect } = useAuth0();
+    const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
     return (
         <>
         <div className="free">
@@ -30,12 +30,17 @@ const Nav = () => {
             <button>Search</button>
         </div>
         <div className="icon">
-            <div className="account">
+            {
+                isAuthenticated && 
+                (
+                <div className="account">
                 <div className="user_icon">
                       <BiUserCircle/>
                 </div>
-                <p>Hello, user</p>
-            </div>
+                <p>Hello, {user.name}</p>
+                </div>  
+                ) 
+            }
             <div className="second_icon">
                 <Link to="/" className="link"><AiOutlineHeart/></Link>
                 <Link to="/cart" className="link"><BsBagCheck/></Link>
@@ -63,8 +68,12 @@ const Nav = () => {
         </div>
         
         <div className="auth">
-            <button onClick={() => loginWithRedirect()}><FiLogIn/></button>
-            <button><FiLogOut/></button>
+            {
+                isAuthenticated ?
+                <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}><FiLogOut/></button>
+                :
+                <button onClick={() => loginWithRedirect()}><FiLogIn/></button>
+             }
         </div>
     </div>
 </div>

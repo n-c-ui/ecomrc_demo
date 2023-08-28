@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './nav';
+import Rout from './Rout';
 import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
@@ -7,6 +8,7 @@ const App = () => {
     <>
     <BrowserRouter>
     <Nav/>
+    <Rout/>
     </BrowserRouter>
     </>
   )
