@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { FaTruck } from 'react-icons/fa';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BsBagCheck } from 'react-icons/bs';
@@ -7,9 +7,10 @@ import { FiLogIn } from 'react-icons/fi';
 import { FiLogOut } from 'react-icons/fi';
 import {Link} from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
-import './nav.css'
+import './Nav.css'
 
-const Nav = () => {
+const Nav = ({searchBtn}) => {
+    const [search, setSearch] = useState()
     const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
     return (
         <>
@@ -26,8 +27,8 @@ const Nav = () => {
             <img src='./img/E-store.png' alt='logo'></img>
         </div>
         <div className="search_box">
-            <input type="text" value="" placeholder="Search for a product .." autoComplete="off"></input>
-            <button>Search</button>
+            <input type="text" value={search} placeholder="Search for a product .." autoComplete="off" onChange={(e) => setSearch(e.target.value)}></input>
+            <button onClick={() => searchBtn(search)}>Search</button>
         </div>
         <div className="icon">
             {
@@ -56,7 +57,7 @@ const Nav = () => {
             <Link to='/' className="link">Home</Link>
             </li>
             <li>
-            <Link to='/products' className="link">Products</Link>
+            <Link to='/Product' className="link">Products</Link>
             </li>
             <li>
             <Link to='/about' className="link">About</Link>
